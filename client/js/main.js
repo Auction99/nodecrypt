@@ -117,10 +117,23 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	const loginForm = $id('login-form');               // 登录表单 / Login form
 
+	// ------- 访问密码校验插入点 --------
 	if (loginForm) {
-		// 监听登录表单提交事件 / Listen to login form submission
-		loginForm.addEventListener('submit', loginFormHandler(null))
+		loginForm.addEventListener('submit', function(e) {
+			const accessPwdInput = document.getElementById('access-password');
+			const accessPwd = accessPwdInput ? accessPwdInput.value.trim() : '';
+			if (accessPwd !== 'nicaia') {
+				notifyMessage('访问密码错误，请重试！');
+				accessPwdInput.value = '';
+				accessPwdInput.focus();
+				e.preventDefault();
+				return;
+			}
+			// 原有表单处理逻辑
+			loginFormHandler(null)(e);
+		});
 	}
+	// ------- 访问密码校验插入点 END --------
 
 	const joinBtn = $('.join-room'); // 加入房间按钮 / Join room button
 	if (joinBtn) {
