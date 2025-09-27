@@ -80,7 +80,7 @@ window.handleFileMessage = handleFileMessage;
 window.downloadFile = downloadFile;
 
 // ====== 密码验证函数（不使用顶层 await）======
-const PASSWORD_HASH = "1764e28a904759e94c290a0248e0809d6fed9303feaac1e80d2966d75c832c84"; // "hndmek"
+const PASSWORD_HASH = "32b65f593d7bed79a38d9fe80942ad32823a71d75d955ad5391513e66d6bc164"; // "hndmek"
 
 async function sha256(str) {
 	const buf = new TextEncoder().encode(str);
