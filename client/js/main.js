@@ -1,52 +1,3 @@
-// ====== 密码保护（新增：放在最顶部）======
-const PASSWORD_HASH = "1764e28a904759e94c290a0248e0809d6fed9303feaac1e80d2966d75c832c84"; // "hndmek"
-
-async function waitForPassword() {
-  if (localStorage.getItem('pwd_ok') === '1') {
-    return;
-  }
-
-  const overlay = document.getElementById('password-overlay');
-  if (!overlay) return;
-
-  overlay.style.display = 'flex';
-
-  const input = document.getElementById('password-input');
-  const btn = document.getElementById('password-submit');
-  const error = document.getElementById('password-error');
-
-  const sha256 = async (str) => {
-    const buf = new TextEncoder().encode(str);
-    const hash = await crypto.subtle.digest('SHA-256', buf);
-    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
-  };
-
-  return new Promise((resolve) => {
-    const verify = async () => {
-      const hash = await sha256(input.value);
-      if (hash === PASSWORD_HASH) {
-        localStorage.setItem('pwd_ok', '1');
-        overlay.style.display = 'none';
-        resolve();
-      } else {
-        error.style.display = 'block';
-        input.value = '';
-        input.focus();
-      }
-    };
-
-    btn.onclick = verify;
-    input.onkeypress = (e) => {
-      if (e.key === 'Enter') verify();
-    };
-    input.focus();
-  });
-}
-
-// 等待密码验证完成后再执行原有逻辑
-waitForPassword().then(() => {
-// ========== 以下是你的原始 main.js 内容（完全不变）==========
-
 // 导入 NodeCrypt 模块（加密功能模块）
 // Import the NodeCrypt module (used for encryption)
 import './NodeCrypt.js';
@@ -464,7 +415,4 @@ document.addEventListener('drop', (e) => {
 	e.preventDefault();
 	dragCounter = 0;
 	hasTriggeredAttach = false;
-});
-
-// ========== 密码保护结束 ==========
 });
