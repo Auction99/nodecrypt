@@ -1,5 +1,5 @@
 // ===== 密码保护：前端哈希版 =====
-const PASSWORD_HASH = "c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd4"; // "hndmek" 的 SHA-256
+const PASSWORD_HASH = "1764e28a904759e94c290a0248e0809d6fed9303feaac1e80d2966d75c832c84"; // "hndmek" 的 SHA-256
 
 async function checkPasswordAndInit() {
 	// 检查是否已验证
